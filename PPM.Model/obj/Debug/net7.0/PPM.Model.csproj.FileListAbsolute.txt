@@ -1,0 +1,12 @@
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\bin\Debug\net7.0\PPM.Model.deps.json
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\bin\Debug\net7.0\PPM.Model.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\bin\Debug\net7.0\PPM.Model.pdb
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\obj\Debug\net7.0\PPM.Model.csproj.AssemblyReference.cache
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\obj\Debug\net7.0\PPM.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\obj\Debug\net7.0\PPM.Model.AssemblyInfoInputs.cache
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\obj\Debug\net7.0\PPM.Model.AssemblyInfo.cs
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\obj\Debug\net7.0\PPM.Model.csproj.CoreCompileInputs.cache
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\obj\Debug\net7.0\PPM.Model.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\obj\Debug\net7.0\refint\PPM.Model.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\obj\Debug\net7.0\PPM.Model.pdb
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Model\obj\Debug\net7.0\ref\PPM.Model.dll
