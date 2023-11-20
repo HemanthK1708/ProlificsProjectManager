@@ -1,7 +1,10 @@
+using PPM.DAL;
 using PPM.Domain;
 using PPM.Model;
 using System.Data.SqlClient;
+using System.Net;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace PPM.UiConsole
 {
@@ -11,10 +14,7 @@ namespace PPM.UiConsole
         ProjectRepository projectRepository = new ProjectRepository();
         EmployeeProjectRepository employeeProjectRepository = new EmployeeProjectRepository();
         EmployeeConsole employeeConsole = new();
-
-        string server =
-            "Server = RHJ-9F-D217\\SQLEXPRESS; Database = ProlificsProjectManager; Integrated Security=SSPI;";
-
+        EmployeeDAL employeeDAL = new();
         public int ProjectModule()
         {
             int choice = 0;
@@ -29,7 +29,9 @@ namespace PPM.UiConsole
             System.Console.WriteLine("--           Enter 2. to View All Projects            --");
             System.Console.WriteLine("--           Enter 3. to View Project by ID           --");
             System.Console.WriteLine("--           Enter 4. to Delete Project               --");
+            Console.ForegroundColor = ConsoleColor.Yellow;
             System.Console.WriteLine("--           Enter 5. for Employee to Project Module  --");
+            Console.ResetColor();
             System.Console.WriteLine("--           Enter 6. to Return to Main Menu          --");
 
             try
@@ -41,7 +43,9 @@ namespace PPM.UiConsole
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("Exception Occured : " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                System.Console.WriteLine("\nException Occured : " + ex.Message);
+                Console.ResetColor();
             }
 
             System.Console.WriteLine("\n--------------------------------------------------------");
@@ -49,51 +53,65 @@ namespace PPM.UiConsole
             return choice;
         }
 
+        DateTime endDate, projectEndDate, startDate;
         public void AddProject()
         {
-            int projectId;
-            DateTime endDate, projectEndDate;
+            int projectId = 0;
             while (true)
             {
-                System.Console.Write("Enter the Project ID : ");
-                projectId = int.Parse(Console.ReadLine());
-
-                using (SqlConnection connection = new SqlConnection(server))
+                try
                 {
-                    connection.Open();
-                    string cmd = $"SELECT COUNT(*) FROM Project WHERE ProjectId = '{projectId}';";
-                    using (SqlCommand command = new SqlCommand(cmd, connection))
-                    {
-                        int count = (int)command.ExecuteScalar();
-                        if (count != 0)
-                        {
-                            System.Console.WriteLine("\n--   Project Exists, Please enter a valid PROJECT ID !!!   --\n");
-                            continue;
-                        }
-                    }
+
+                    System.Console.Write("Enter the Project ID : ");
+                    projectId = int.Parse(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    System.Console.WriteLine("\nException Occured : " + ex.Message);
+                    System.Console.WriteLine();
+                    Console.ResetColor();
+                    continue;
+
                 }
 
-                // bool result = projectRepository.IsValidProject(projectId);
-                // if (result) { 
-                //      System.Console.WriteLine(
-                //         "\n--   Project Exists, Please enter a valid PROJECT ID !!!   --\n"
-                //     );
-                //     continue;
-                // }
-                
+                bool result = projectRepository.IsValidProject(projectId);
+                if (result)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    System.Console.WriteLine(
+                        "\n--   Project Exists, Please enter a valid PROJECT ID !!!   --\n"
+                    );
+                    Console.ResetColor();
+                    continue;
+                }
+
                 break;
             }
 
             System.Console.Write("Enter the Project Name : ");
             string projectName = Console.ReadLine();
 
-            System.Console.Write("Enter the project start date : ");
-            DateTime startDate = DateTime.Parse(Console.ReadLine());
 
             while (true)
             {
-                System.Console.Write("Enter the project end date : ");
-                projectEndDate = DateTime.Parse(Console.ReadLine());
+                try
+                {
+
+                    System.Console.Write("Enter the project start date : ");
+                    startDate = DateTime.Parse(Console.ReadLine());
+
+                    System.Console.Write("Enter the project end date : ");
+                    projectEndDate = DateTime.Parse(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    System.Console.WriteLine("\nException Occured : " + ex.Message);
+                    System.Console.WriteLine();
+                    Console.ResetColor();
+                    continue;
+                }
 
                 if (IsValidEndDate(startDate, projectEndDate))
                 {
@@ -101,13 +119,14 @@ namespace PPM.UiConsole
                 }
                 else
                 {
-                    System.Console.WriteLine(
-                        "Project End date should not be less than start date ! "
-                    );
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    System.Console.WriteLine("\n--   Project End date should not be less than start date !!!   --\n");
+                    Console.ResetColor();
                     continue;
                 }
                 break;
             }
+
             Project project = new Project
             {
                 ProjectId = projectId,
@@ -117,14 +136,18 @@ namespace PPM.UiConsole
             };
             projectRepository.Add(project);
 
+            Console.ForegroundColor = ConsoleColor.Green;
             System.Console.WriteLine("\n--   Project added successfully !!!   --\n");
+            Console.ResetColor();
 
             // Adding Employee to project.
             bool choice = true;
             while (choice)
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 System.Console.Write("Do you want to add Employees into the project ? (y/n) : ");
                 string request = Console.ReadLine();
+                Console.ResetColor();
 
                 if (
                     request == "y"
@@ -134,47 +157,61 @@ namespace PPM.UiConsole
                     || request == "YES"
                 )
                 {
-                    if (EmployeeRepository.employeeList.Count == 0)
+                    // if (EmployeeRepository.employeeList.Count == 0)
+                    bool employeeCount = employeeDAL.EmployeeCount();
+                    if (employeeCount == false)
                     {
-                        System.Console.WriteLine(
-                            "\n--   Employee does not Exist, Please enter Employees !!!   --\n"
-                        );
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        System.Console.WriteLine("\n--   Employee does not Exist, Please enter Employees !!!   --\n");
+                        Console.ResetColor();
                         return;
                     }
                     System.Console.WriteLine();
                     System.Console.WriteLine("The available employees are : ");
                     employeeConsole.ViewEmployee();
                     System.Console.WriteLine();
-                    int employeeId;
+                    int employeeId = 0;
+
                     while (true)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        System.Console.Write("Enter the Employee ID : ");
-                        employeeId = int.Parse(Console.ReadLine());
-                        Console.ResetColor();
+                        try
+                        {
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            System.Console.Write("Enter the Employee ID : ");
+                            employeeId = int.Parse(Console.ReadLine());
+                            Console.ResetColor();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            System.Console.WriteLine("\nException Occured : " + ex.Message);
+                            System.Console.WriteLine();
+                            Console.ResetColor();
+
+                        }
+
 
                         var valid = employeeRepository.IsValidEmployee(employeeId);
                         if (valid == false)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            System.Console.WriteLine(
-                                "\n--   Employee Does Not Exist, Please enter a VALID EMPLOYEE ID !!!   --\n"
-                            );
+                            System.Console.WriteLine("\n--   Employee Does Not Exist, Please enter a VALID EMPLOYEE ID !!!   --\n");
                             Console.ResetColor();
                             continue;
                         }
 
-                        var ValidEmployeeProject =
-                            EmployeeProjectRepository.employeeProjectList.Any(
-                                p => p.ProjectId == projectId && p.EmployeeID == employeeId
-                            );
+                        // var ValidEmployeeProject =
+                        //     EmployeeProjectRepository.employeeProjectList.Any(
+                        //         p => p.ProjectId == projectId && p.EmployeeID == employeeId
+                        //     );
+
+                        var ValidEmployeeProject = employeeProjectRepository.ValidEmployeeProject(projectId, employeeId);
 
                         if (ValidEmployeeProject)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            System.Console.WriteLine(
-                                "\n--   Employee exists in the project, Enter a valid employee !!!   --\n"
-                            );
+                            System.Console.WriteLine("\n--   Employee exists in the project, Enter a valid employee !!!   --\n");
                             Console.ResetColor();
                             continue;
                         }
@@ -216,50 +253,91 @@ namespace PPM.UiConsole
 
         public void ViewProjectByID()
         {
-            System.Console.Write("Enter the Project ID to be searched : ");
-            int projectId = int.Parse(Console.ReadLine());
+            try
+            {
 
-            var viewProject = projectRepository.ViewByID(projectId);
-            if (viewProject != null)
-            {
-                System.Console.WriteLine(
-                    $"Project ID : {viewProject.ProjectId}, Project Name : {viewProject.ProjectName}, Start Date : {viewProject.StartDate}, End Date : {viewProject.EndDate}"
-                );
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                System.Console.Write("Enter the Project ID to be searched : ");
+                int projectId = int.Parse(Console.ReadLine());
+                System.Console.WriteLine();
+                Console.ResetColor();
+
+                var viewProject = projectRepository.ViewByID(projectId);
+                if (viewProject.ProjectId == projectId)
+                {
+                    System.Console.WriteLine(
+                        $"Project ID : {viewProject.ProjectId}, Project Name : {viewProject.ProjectName}, Start Date : {viewProject.StartDate}, End Date : {viewProject.EndDate}"
+                    );
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    System.Console.WriteLine("\n--   Project does not Exist, Please enter a valid PROJECT ID !!!   --\n");
+                    Console.ResetColor();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                System.Console.WriteLine(
-                    "\n--   Project does not Exist, Please enter a valid PROJECT ID !!!   --\n"
-                );
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                System.Console.WriteLine("\nException Occured : " + ex.Message);
+                System.Console.WriteLine();
+                Console.ResetColor();
+
             }
         }
 
         public void DeleteProjectByID()
         {
-            if (ProjectRepository.projectList.Count == 0)
+            ViewProjects();
+            if (ProjectDAL.projectList.Count == 0)
             {
-                System.Console.WriteLine(
-                    "\n--   Project does not Exist, Please enter a valid PROJECTS !!!   --\n"
-                );
+                Console.ForegroundColor = ConsoleColor.Red;
+                System.Console.WriteLine("\n--   Project does not Exist, Please enter a valid PROJECTS !!!   --\n");
+                Console.ResetColor();
                 return;
             }
 
-            int projectId;
-
-            System.Console.Write("Enter the Project ID to be deleted : ");
-            projectId = int.Parse(Console.ReadLine());
-
-            bool result = projectRepository.IsValidProject(projectId);
-            if (result == false)
+            try
             {
-                System.Console.WriteLine(
-                    "\n--   Project does not Exist, Please enter a valid PROJECT ID !!!   --\n"
-                );
+
+                int projectId;
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                System.Console.Write("\nEnter the Project ID to be deleted : ");
+                projectId = int.Parse(Console.ReadLine());
+                Console.ResetColor();
+
+                bool result = projectRepository.IsValidProject(projectId);
+                if (result)
+                {
+                    if (projectRepository.ProjectInEmployeeProject(projectId))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        System.Console.WriteLine("\n--   Project cannot be removed as it contains active employees !!!   --\n");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        projectRepository.DeleteByID(projectId);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        System.Console.WriteLine("\n--   Project removed successfully !!!   --\n");
+                        Console.ResetColor();
+                    }
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    System.Console.WriteLine("\n--   Project does not Exist, Please enter a valid PROJECT ID !!!   --\n");
+                    Console.ResetColor();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                projectRepository.DeleteByID(projectId);
-                System.Console.WriteLine("\n--   Project removed successfully !!!   --\n");
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                System.Console.WriteLine("\nException Occured : " + ex.Message);
+                System.Console.WriteLine();
+                Console.ResetColor();
+
             }
         }
 

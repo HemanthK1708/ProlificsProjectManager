@@ -147,6 +147,20 @@
           }
         }
       },
+      "PPM.DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "PPM.Model": "1.0.0",
+          "System.Data.SqlClient": "4.8.5"
+        },
+        "compile": {
+          "bin/placeholder/PPM.DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PPM.DAL.dll": {}
+        }
+      },
       "PPM.Model/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -473,6 +487,11 @@
         "version.txt"
       ]
     },
+    "PPM.DAL/1.0.0": {
+      "type": "project",
+      "path": "../PPM.DAL/PPM.DAL.csproj",
+      "msbuildProject": "../PPM.DAL/PPM.DAL.csproj"
+    },
     "PPM.Model/1.0.0": {
       "type": "project",
       "path": "../PPM.Model/PPM.Model.csproj",
@@ -481,6 +500,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "PPM.DAL >= 1.0.0",
       "PPM.Model >= 1.0.0",
       "System.Data.SqlClient >= 4.8.5"
     ]
@@ -510,6 +530,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+            "C:\\Users\\HChilamkurthi\\Documents\\Dotnet_Assignment\\ProlificsProjectManager\\PPM.DAL\\PPM.DAL.csproj": {
+              "projectPath": "C:\\Users\\HChilamkurthi\\Documents\\Dotnet_Assignment\\ProlificsProjectManager\\PPM.DAL\\PPM.DAL.csproj"
+            },
             "C:\\Users\\HChilamkurthi\\Documents\\Dotnet_Assignment\\ProlificsProjectManager\\PPM.Model\\PPM.Model.csproj": {
               "projectPath": "C:\\Users\\HChilamkurthi\\Documents\\Dotnet_Assignment\\ProlificsProjectManager\\PPM.Model\\PPM.Model.csproj"
             }

@@ -147,10 +147,25 @@
           }
         }
       },
+      "PPM.DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "PPM.Model": "1.0.0",
+          "System.Data.SqlClient": "4.8.5"
+        },
+        "compile": {
+          "bin/placeholder/PPM.DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PPM.DAL.dll": {}
+        }
+      },
       "PPM.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "PPM.DAL": "1.0.0",
           "PPM.Model": "1.0.0",
           "System.Data.SqlClient": "4.8.5"
         },
@@ -486,6 +501,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "PPM.DAL/1.0.0": {
+      "type": "project",
+      "path": "../PPM.DAL/PPM.DAL.csproj",
+      "msbuildProject": "../PPM.DAL/PPM.DAL.csproj"
     },
     "PPM.Domain/1.0.0": {
       "type": "project",

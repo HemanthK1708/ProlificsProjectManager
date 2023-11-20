@@ -13,3 +13,5 @@ C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.D
 C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\refint\PPM.Domain.dll
 C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\PPM.Domain.pdb
 C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\ref\PPM.Domain.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\bin\Debug\net7.0\PPM.DAL.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\bin\Debug\net7.0\PPM.DAL.pdb

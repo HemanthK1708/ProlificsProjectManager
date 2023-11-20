@@ -1,3 +1,4 @@
+using PPM.DAL;
 using PPM.Domain;
 using PPM.Model;
 using System.Text.RegularExpressions;
@@ -8,8 +9,12 @@ namespace PPM.UiConsole
     {
         EmployeeRepository employeeRepository = new EmployeeRepository();
         RolesRepository rolesRepository = new RolesRepository();
+        EmployeeProjectDAL employeeProjectDAL = new();
+        RoleDAL roleDAL = new();
+
         public int EmployeeModule()
         {
+            int choice = 0;
 
             System.Console.WriteLine("--------------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -24,44 +29,67 @@ namespace PPM.UiConsole
             System.Console.WriteLine("--           Enter 4. to Delete Employee              --");
             System.Console.WriteLine("--           Enter 5. to Return to Main Menu          --");
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            System.Console.Write("\nEnter your choice : ");
-            int choice = int.Parse(Console.ReadLine());
-            Console.ResetColor();
+            try
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                System.Console.Write("\nEnter your choice : ");
+                choice = int.Parse(Console.ReadLine());
+                Console.ResetColor();
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                System.Console.WriteLine("\nException Occured : " + ex.Message);
+                Console.ResetColor();
+            }
 
             System.Console.WriteLine("\n--------------------------------------------------------");
 
             // Console.Clear();
             return choice;
         }
+        int employeeId, roleId;
+        string mobile, email;
         public void AddEmployee()
         {
             bool choice = true;
 
-            if (RolesRepository.rolesList.Count == 0)
+            if (roleDAL.RoleCount() == false)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 System.Console.WriteLine("\n--   Roles does not exists, Please enter a valid ROLES  !!!   --\n");
+                Console.ResetColor();
                 return;
             }
+
             while (choice)
             {
-                int employeeId, roleId;
-                string mobile,
-                    email;
                 while (true)
                 {
-                    System.Console.Write("Enter the Employee ID : ");
-                    employeeId = int.Parse(Console.ReadLine());
+                    try
+                    {
+                        System.Console.Write("Enter the Employee ID : ");
+                        employeeId = int.Parse(Console.ReadLine());
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        System.Console.WriteLine("\nException Occured : " + ex.Message);
+                        System.Console.WriteLine();
+                        Console.ResetColor();
+                        continue;
+                    }
 
                     var valid = employeeRepository.IsValidEmployee(employeeId);
                     if (valid)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         System.Console.WriteLine("\n--   Employee aldready exists, Please enter a new EMPLOYEE ID !!!   --\n");
+                        Console.ResetColor();
                         continue;
                     }
                     break;
 
-                    //string cmd = "SELECT COUNT(*) FROM Project W"
                 }
 
                 System.Console.Write("Enter the First Name : ");
@@ -81,7 +109,9 @@ namespace PPM.UiConsole
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         System.Console.WriteLine("\nEnter a valid email !!!\n");
+                        Console.ResetColor();
                         continue;
                     }
                     break;
@@ -98,7 +128,9 @@ namespace PPM.UiConsole
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         System.Console.WriteLine("\nPlease enter a valid number !!! \n");
+                        Console.ResetColor();
                         continue;
                     }
                     break;
@@ -108,11 +140,24 @@ namespace PPM.UiConsole
 
                 while (true)
                 {
-                    System.Console.Write("Enter the RoleId : ");
-                    roleId = int.Parse(Console.ReadLine());
+                    try
+                    {
+                        System.Console.Write("Enter the RoleId : ");
+                        roleId = int.Parse(Console.ReadLine());
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        System.Console.WriteLine("\nException Occured : " + ex.Message);
+                        System.Console.WriteLine();
+                        Console.ResetColor();
+                        continue;
+                    }
                     if (rolesRepository.IsValidRole(roleId) == false)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         System.Console.WriteLine("\n--   RoleID does not exists, Please enter a valid ROLE ID  !!!   --\n");
+                        Console.ResetColor();
                         continue;
                     }
                     break;
@@ -160,54 +205,87 @@ namespace PPM.UiConsole
 
         public void ViewEmployeeByID()
         {
-            System.Console.Write("Enter the Employee ID to be searched : ");
-            int employeeId = int.Parse(Console.ReadLine());
-
-
-            var viewEmployee = employeeRepository.ViewByID(employeeId);
-            if (viewEmployee != null)
+            try
             {
-                System.Console.WriteLine($"Employee ID : {viewEmployee.EmployeeID}, First Name : {viewEmployee.FirstName}, Last Name : {viewEmployee.LastName}, Email : {viewEmployee.Email}, Mobile : {viewEmployee.Mobile}, Address : {viewEmployee.Address}, RoleID : {viewEmployee.RoleId}");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                System.Console.Write("Enter the Employee ID to be searched : ");
+                int employeeId = int.Parse(Console.ReadLine());
+                Console.ResetColor();
+
+                var viewEmployee = employeeRepository.ViewByID(employeeId);
+                if (viewEmployee.EmployeeID == employeeId)
+                {
+                    System.Console.WriteLine($"Employee ID : {viewEmployee.EmployeeID}, First Name : {viewEmployee.FirstName}, Last Name : {viewEmployee.LastName}, Email : {viewEmployee.Email}, Mobile : {viewEmployee.Mobile}, Address : {viewEmployee.Address}, RoleID : {viewEmployee.RoleId}");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    System.Console.WriteLine("\n--   Employee does not Exist, Please enter a valid Employee ID !!!   --\n");
+                    Console.ResetColor();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                System.Console.WriteLine("\n--   Employee does not Exist, Please enter a valid Employee ID !!!   --\n");
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                System.Console.WriteLine("\nException Occured : " + ex.Message);
+                Console.ResetColor();
             }
+
         }
 
         public void DeleteEmployeeByID()
         {
-            if (EmployeeRepository.employeeList.Count == 0)
+            System.Console.WriteLine("The available employees are : ");
+            ViewEmployee();
+
+            if (EmployeeDAL.employeeList.Count == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 System.Console.WriteLine("\n--   Employee does not Exist, Please enter Employees !!!   --\n");
+                Console.ResetColor();
                 return;
             }
 
-            System.Console.WriteLine("The available employees are : ");
-            ViewEmployee();
-            System.Console.WriteLine();
-            int employeeId;
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            System.Console.Write("Enter the Employee ID to be removed : ");
-            employeeId = int.Parse(Console.ReadLine());
-            Console.ResetColor();
-
-            bool result = employeeRepository.IsValidEmployee(employeeId);
-            if (result == false)
+            try
             {
-                System.Console.WriteLine("\n--   Employee does not Exist, Please enter a valid Employee ID !!!   --\n");
-            }
-            else if (EmployeeProjectRepository.employeeProjectList.Any(r => r.EmployeeID == employeeId))
-            {
-                System.Console.WriteLine("\nThe Employee cannot be deleted as he in enrolled in the project.");
-            }
-            else
-            {
-                employeeRepository.DeleteByID(employeeId);
-                System.Console.WriteLine("\n--   Employee removed successfully !!!   --\n");
-            }
+                System.Console.WriteLine();
+                int employeeId;
 
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                System.Console.Write("Enter the Employee ID to be removed : ");
+                employeeId = int.Parse(Console.ReadLine());
+                Console.ResetColor();
+
+                bool result = employeeRepository.IsValidEmployee(employeeId);
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                if (result == false)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    System.Console.WriteLine("\n--   Employee does not Exist, Please enter a valid Employee ID !!!   --\n");
+                    Console.ResetColor();
+                }
+                // else if (EmployeeProjectRepository.employeeProjectList.Any(r => r.EmployeeID == employeeId))
+                else if (employeeProjectDAL.EmployeeInProject(employeeId))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    System.Console.WriteLine("\n--  The Employee cannot be deleted as he in enrolled in the project !!! --");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    employeeRepository.DeleteByID(employeeId);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    System.Console.WriteLine("\n--   Employee removed successfully !!!   --\n");
+                }
+                Console.ResetColor();
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                System.Console.WriteLine("\nException Occured : " + ex.Message);
+                Console.ResetColor();
+            }
 
         }
 

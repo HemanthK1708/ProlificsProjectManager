@@ -392,8 +392,18 @@
         }
       },
       "System.Security.Principal.Windows/4.7.0": {},
+      "PPM.DAL/1.0.0": {
+        "dependencies": {
+          "PPM.Model": "1.0.0",
+          "System.Data.SqlClient": "4.8.5"
+        },
+        "runtime": {
+          "PPM.DAL.dll": {}
+        }
+      },
       "PPM.Domain/1.0.0": {
         "dependencies": {
+          "PPM.DAL": "1.0.0",
           "PPM.Model": "1.0.0",
           "System.Data.SqlClient": "4.8.5"
         },
@@ -560,6 +570,11 @@
       "sha512": "sha512-ojD0PX0XhneCsUbAZVKdb7h/70vyYMDYs85lwEI+LngEONe/17A0cFaRFqZU+sOEidcVswYWikYOQ9PPfjlbtQ==",
       "path": "system.security.principal.windows/4.7.0",
       "hashPath": "system.security.principal.windows.4.7.0.nupkg.sha512"
+    },
+    "PPM.DAL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "PPM.Domain/1.0.0": {
       "type": "project",

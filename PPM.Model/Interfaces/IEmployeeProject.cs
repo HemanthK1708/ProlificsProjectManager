@@ -8,7 +8,7 @@ namespace PPM.Model
 
         public List<EmployeeProject> ViewEmployeeProject();
 
-        public void ViewEmployeeInProject(int projectId);
+        public List<EmployeeProject> ViewEmployeeInProject(int projectId);
 
         public List<EmployeeProject> ViewEmployeeProjects();
     }

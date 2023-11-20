@@ -1,0 +1,15 @@
+c:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\obj\Debug\net7.0\PPM.DAL.csproj.AssemblyReference.cache
+c:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\obj\Debug\net7.0\PPM.DAL.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\obj\Debug\net7.0\PPM.DAL.AssemblyInfoInputs.cache
+c:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\obj\Debug\net7.0\PPM.DAL.AssemblyInfo.cs
+c:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\obj\Debug\net7.0\PPM.DAL.csproj.CoreCompileInputs.cache
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\bin\Debug\net7.0\PPM.DAL.deps.json
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\bin\Debug\net7.0\PPM.DAL.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\bin\Debug\net7.0\PPM.DAL.pdb
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\bin\Debug\net7.0\PPM.Model.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\bin\Debug\net7.0\PPM.Model.pdb
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\obj\Debug\net7.0\PPM.DAL.csproj.CopyComplete
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\obj\Debug\net7.0\PPM.DAL.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\obj\Debug\net7.0\refint\PPM.DAL.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\obj\Debug\net7.0\PPM.DAL.pdb
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.DAL\obj\Debug\net7.0\ref\PPM.DAL.dll

@@ -108,3 +108,5 @@ c:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.T
 c:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Test\bin\Debug\net7.0\runtimes\win-x86\native\sni.dll
 c:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Test\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 c:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Test\bin\Debug\net7.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+c:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Test\bin\Debug\net7.0\PPM.DAL.dll
+c:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Test\bin\Debug\net7.0\PPM.DAL.pdb

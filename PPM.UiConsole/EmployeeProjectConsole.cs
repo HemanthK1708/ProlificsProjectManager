@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+using PPM.DAL;
 using PPM.Domain;
 using PPM.Model;
 
@@ -9,6 +11,10 @@ namespace PPM.UiConsole
         ProjectRepository projectRepository = new ProjectRepository();
         EmployeeConsole employeeConsole = new();
         ProjectConsole projectConsole = new();
+
+        ProjectDAL projectDAL = new();
+        EmployeeDAL employeeDAL = new();
+        EmployeeProjectDAL employeeProjectDAL = new();
 
         EmployeeProjectRepository employeeProjectRepository = new EmployeeProjectRepository();
 
@@ -36,7 +42,9 @@ namespace PPM.UiConsole
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine("Exception Occured : " + ex.Message);
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                System.Console.WriteLine("\nException Occured : " + ex.Message);
+                Console.ResetColor();
             }
 
             System.Console.WriteLine("\n--------------------------------------------------------");
@@ -45,38 +53,60 @@ namespace PPM.UiConsole
             return choice;
         }
 
+        int projectId, employeeId;
+
         public void AddEmployeeToProject()
         {
             // To check that there is atleast an employee/project inside the lists.
-            if (
-                ProjectRepository.projectList.Count == 0
-                && EmployeeRepository.employeeList.Count == 0
-            )
+
+            bool projectCount = projectDAL.ProjectCount();
+            bool employeeCount = employeeDAL.EmployeeCount();
+
+
+            if (projectCount == false)
             {
-                System.Console.WriteLine(
-                    "\n--   PROJECTS/EMPLOYEES does not exists, Please enter a valid PROJECTS/EMPLOYEES  !!!   --\n"
-                );
+                if (employeeCount == false)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    System.Console.WriteLine("\n--   EMPLOYEES does not exists, Please enter a valid PROJECTS  !!!   --\n");
+                    Console.ResetColor();
+                    return;
+                }
+                Console.ForegroundColor = ConsoleColor.Red;
+                System.Console.WriteLine("\n--   PROJECTS does not exists, Please enter a valid PROJECTS  !!!   --\n");
+                Console.ResetColor();
                 return;
             }
 
-            int projectId,
-                employeeId;
+
             System.Console.WriteLine("The available projects are : ");
             projectConsole.ViewProjects();
             System.Console.WriteLine();
+
             while (true)
             {
-                System.Console.Write("Enter the Project ID : ");
-                projectId = int.Parse(Console.ReadLine());
-                System.Console.WriteLine();
+                try
+                {
+                    System.Console.Write("Enter the Project ID : ");
+                    projectId = int.Parse(Console.ReadLine());
+                    System.Console.WriteLine();
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    System.Console.WriteLine("\nException Occured : " + ex.Message);
+                    Console.ResetColor();
+                    continue;
+                }
 
                 bool result = projectRepository.IsValidProject(projectId);
-
                 if (result == false)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     System.Console.WriteLine(
                         "\n--   Project Does Not Exist, Please enter a valid PROJECT ID !!!   --\n"
                     );
+                    Console.ResetColor();
                     continue;
                 }
 
@@ -87,36 +117,57 @@ namespace PPM.UiConsole
             employeeConsole.ViewEmployee();
             System.Console.WriteLine();
 
-           
-                System.Console.Write("Enter the Employee ID : ");
-                employeeId = int.Parse(Console.ReadLine());
-
-                var valid = employeeRepository.IsValidEmployee(employeeId);
-                if (valid == false)
+            while (true)
+            {
+                try
                 {
-                    System.Console.WriteLine(
-                        "\n--   Employee Does Not Exist, Please enter a VALID EMPLOYEE ID !!!   --\n"
-                    );
-                    // continue;
+                    System.Console.Write("Enter the Employee ID : ");
+                    employeeId = int.Parse(Console.ReadLine());
+                    break;
                 }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    System.Console.WriteLine("\nException Occured : " + ex.Message);
+                    Console.ResetColor();
+                    continue;
+                }
+            }
 
-                var ValidEmployeeProject = EmployeeProjectRepository.employeeProjectList.Any(
-                    p => p.ProjectId == projectId && p.EmployeeID == employeeId
+
+            var valid = employeeRepository.IsValidEmployee(employeeId);
+            if (valid == false)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                System.Console.WriteLine(
+                    "\n--   Employee Does Not Exist, Please enter a VALID EMPLOYEE ID !!!   --\n"
                 );
+                Console.ResetColor();
+                // continue;
+            }
 
-                if (ValidEmployeeProject)
-                {
-                    System.Console.WriteLine(
-                        "\n--   Employee exists in the project, Please enter a VALID EMPLOYEE ID !!!   --\n"
-                    );
-                }
-                else
-                {
-                    employeeProjectRepository.AddEmployeeToProject(projectId, employeeId);
-                    System.Console.WriteLine("\n--   Employee added successfully !!!   --\n");
-                }
+            // var ValidEmployeeProject = EmployeeProjectRepository.employeeProjectList.Any(
+            //     p => p.ProjectId == projectId && p.EmployeeID == employeeId
+            // );
 
-            
+            var ValidEmployeeProject = employeeProjectRepository.ValidEmployeeProject(projectId, employeeId);
+            if (ValidEmployeeProject)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                System.Console.WriteLine(
+                    "\n--   Employee exists in the project, Please enter a VALID EMPLOYEE ID !!!   --\n"
+                );
+                Console.ResetColor();
+            }
+            else
+            {
+                employeeProjectRepository.AddEmployeeToProject(projectId, employeeId);
+                Console.ForegroundColor = ConsoleColor.Green;
+                System.Console.WriteLine("\n--   Employee added successfully !!!   --\n");
+                Console.ResetColor();
+            }
+
+
         }
 
         public void ViewEmployeeProject()
@@ -133,32 +184,59 @@ namespace PPM.UiConsole
 
         public void RemoveEmployeeFromProject()
         {
+
+            // if (ProjectRepository.projectList.Count == 0)
+            // {
+            //     System.Console.WriteLine(
+            //         "\n--   Project does not Exist, Please enter a valid PROJECTS !!!   --\n"
+            //     );
+            //     return;
+            // }
+            // else if (EmployeeRepository.employeeList.Count == 0)
+            // {
+            //     System.Console.WriteLine(
+            //         "\n--   Employee does not Exist, Please enter Employees !!!   --\n"
+            //     );
+            //     return;
+            // }
+            // else if (EmployeeProjectRepository.employeeProjectList.Count == 0)
+            // {
+            //     System.Console.WriteLine(
+            //         "\n--   Employee to Project does not Exist, Please enter Employees into Project !!!   --\n"
+            //     );
+            //     return;
+            // }
+            bool projectCount = projectDAL.ProjectCount();
+            bool employeeCount = employeeDAL.EmployeeCount();
+            bool employeeProjectCount = employeeProjectDAL.EmployeeProjectCount();
+
+            int projectId = 0, employeeId = 0;
+
             Console.ForegroundColor = ConsoleColor.Red;
-            if (ProjectRepository.projectList.Count == 0)
+            if (projectCount == false)
             {
-                System.Console.WriteLine(
-                    "\n--   Project does not Exist, Please enter a valid PROJECTS !!!   --\n"
-                );
+                Console.ForegroundColor = ConsoleColor.Red;
+                System.Console.WriteLine("\n--   PROJECTS does not exists, Please enter a valid PROJECTS  !!!   --\n");
+                Console.ResetColor();
                 return;
             }
-            else if (EmployeeRepository.employeeList.Count == 0)
+            else if (employeeCount == false)
             {
-                System.Console.WriteLine(
-                    "\n--   Employee does not Exist, Please enter Employees !!!   --\n"
-                );
+                Console.ForegroundColor = ConsoleColor.Red;
+                System.Console.WriteLine("\n--   EMPLOYEES does not exists, Please enter a valid PROJECTS  !!!   --\n");
+                Console.ResetColor();
                 return;
             }
-            else if (EmployeeProjectRepository.employeeProjectList.Count == 0)
+            else if (employeeProjectCount == false)
             {
-                System.Console.WriteLine(
-                    "\n--   Employee to Project does not Exist, Please enter Employees into Project !!!   --\n"
-                );
+                Console.ForegroundColor = ConsoleColor.Red;
+                System.Console.WriteLine("\n--   Employee to Project does not Exist, Please enter Employees into Project !!!   --\n");
+                Console.ResetColor();
                 return;
             }
             Console.ResetColor();
 
-            int projectId,
-                employeeId;
+            
 
             System.Console.WriteLine("The available projects are : ");
             projectConsole.ViewProjects();
@@ -166,48 +244,82 @@ namespace PPM.UiConsole
 
             while (true)
             {
-                System.Console.Write("Enter the Project ID : ");
-                projectId = int.Parse(Console.ReadLine());
-                System.Console.WriteLine();
+                try
+                {
+                    System.Console.Write("Enter the Project ID : ");
+                    projectId = int.Parse(Console.ReadLine());
+                    System.Console.WriteLine();
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    System.Console.WriteLine("\nException Occured : " + ex.Message);
+                    Console.ResetColor();
+                }
+
 
                 bool result = projectRepository.IsValidProject(projectId);
                 if (result == false)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     System.Console.WriteLine(
                         "\n--   Project Does Not Exist, Please enter a valid PROJECT ID !!!   --\n"
                     );
+                    Console.ResetColor();
                     continue;
                 }
                 break;
             }
 
             System.Console.WriteLine("The available employees in the given project are : ");
-            employeeProjectRepository.ViewEmployeeInProject(projectId);
+            ViewEmployeeInProject(projectId);
+            if(employeeProjectDAL.EmployeeInProjectCount(projectId) == false)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                System.Console.WriteLine("\n--   EMPLOYEES does not exists, Please enter a valid PROJECTS  !!!   --\n");
+                Console.ResetColor();
+                return;
+            }
             System.Console.WriteLine();
+
+
 
             while (true)
             {
-                System.Console.Write("Enter the Employee ID : ");
-                employeeId = int.Parse(Console.ReadLine());
-
-                var valid = employeeRepository.IsValidEmployee(employeeId);
-                if (valid == false)
+                try
                 {
-                    System.Console.WriteLine(
-                        "\n--   Employee Does Not Exist, Please enter a new EMPLOYEE ID !!!   --\n"
-                    );
+                    System.Console.Write("Enter the Employee ID : ");
+                    employeeId = int.Parse(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    System.Console.WriteLine("\nException Occured : " + ex.Message);
+                    Console.ResetColor();
+                }
+
+                var validEmployee = employeeRepository.IsValidEmployee(employeeId);
+                if (validEmployee == false)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    System.Console.WriteLine("\n--   Employee Does Not Exist, Please enter a new EMPLOYEE ID !!!   --\n");
+                    Console.ResetColor();
                     continue;
                 }
 
-                var ValidEmployeeProject = EmployeeProjectRepository.employeeProjectList.Any(
-                    p => p.ProjectId == projectId && p.EmployeeID == employeeId
-                );
+                // var ValidEmployeeProject = EmployeeProjectRepository.employeeProjectList.Any(
+                //     p => p.ProjectId == projectId && p.EmployeeID == employeeId
+                // );
+
+                var ValidEmployeeProject = employeeProjectRepository.ValidEmployeeProject(projectId, employeeId);
 
                 if (ValidEmployeeProject == false)
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     System.Console.WriteLine(
                         "\n--   Employee does not exist in the project, Enter a valid employee !!!   --\n"
                     );
+                    Console.ResetColor();
                     continue;
                 }
                 break;
@@ -215,7 +327,9 @@ namespace PPM.UiConsole
 
             employeeProjectRepository.RemoveEmployeeFromProject(projectId, employeeId);
 
+            Console.ForegroundColor = ConsoleColor.Green;
             System.Console.WriteLine("\n--   Employee removed successfully !!!   --\n");
+            Console.ResetColor();
         }
 
         public void Default()
@@ -223,6 +337,18 @@ namespace PPM.UiConsole
             Console.ForegroundColor = ConsoleColor.Red;
             System.Console.WriteLine("\n--   Please enter a valid choice !!!   --\n");
             Console.ResetColor();
+        }
+
+        public void ViewEmployeeInProject(int projectId)
+        {
+            var employeeInProject = employeeProjectRepository.ViewEmployeeInProject(projectId);
+
+            foreach (var item in employeeInProject)
+            {
+                System.Console.WriteLine(
+                    $"Employee ID : {item.EmployeeID}, Employee First Name : {item.FirstName}, Employee Role ID : {item.RoleId}"
+                );
+            }
         }
     }
 }

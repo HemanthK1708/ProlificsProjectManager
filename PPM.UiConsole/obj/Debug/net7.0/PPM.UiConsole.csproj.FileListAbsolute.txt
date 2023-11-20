@@ -15,3 +15,5 @@ C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.U
 C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.UiConsole\obj\Debug\net7.0\refint\PPM.UiConsole.dll
 C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.UiConsole\obj\Debug\net7.0\PPM.UiConsole.pdb
 C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.UiConsole\obj\Debug\net7.0\ref\PPM.UiConsole.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.UiConsole\bin\Debug\net7.0\PPM.DAL.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.UiConsole\bin\Debug\net7.0\PPM.DAL.pdb

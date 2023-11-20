@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPM.Model", "PPM.Model\PPM.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPM.Test", "PPM.Test\PPM.Test.csproj", "{60D8E545-2264-4ADF-9869-5C104712B5E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPM.DAL", "PPM.DAL\PPM.DAL.csproj", "{C70FF08A-9353-4774-936E-931CFE37969A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{60D8E545-2264-4ADF-9869-5C104712B5E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60D8E545-2264-4ADF-9869-5C104712B5E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60D8E545-2264-4ADF-9869-5C104712B5E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C70FF08A-9353-4774-936E-931CFE37969A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C70FF08A-9353-4774-936E-931CFE37969A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C70FF08A-9353-4774-936E-931CFE37969A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C70FF08A-9353-4774-936E-931CFE37969A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
