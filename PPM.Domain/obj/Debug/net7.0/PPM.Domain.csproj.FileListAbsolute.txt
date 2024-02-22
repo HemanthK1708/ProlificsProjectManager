@@ -1,0 +1,17 @@
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\PPM.Domain.csproj.AssemblyReference.cache
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\PPM.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\PPM.Domain.AssemblyInfoInputs.cache
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\PPM.Domain.AssemblyInfo.cs
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\PPM.Domain.csproj.CoreCompileInputs.cache
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\bin\Debug\net7.0\PPM.Domain.deps.json
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\bin\Debug\net7.0\PPM.Domain.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\bin\Debug\net7.0\PPM.Domain.pdb
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\bin\Debug\net7.0\PPM.Model.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\bin\Debug\net7.0\PPM.Model.pdb
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\PPM.Domain.csproj.CopyComplete
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\PPM.Domain.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\refint\PPM.Domain.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\PPM.Domain.pdb
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\obj\Debug\net7.0\ref\PPM.Domain.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\bin\Debug\net7.0\PPM.DAL.dll
+C:\Users\HChilamkurthi\Documents\Dotnet_Assignment\ProlificsProjectManager\PPM.Domain\bin\Debug\net7.0\PPM.DAL.pdb

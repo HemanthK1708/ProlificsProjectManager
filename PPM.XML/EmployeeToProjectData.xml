@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfEmployeeProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <EmployeeProject>
+    <ProjectId>1</ProjectId>
+    <ProjectName>PPM</ProjectName>
+    <EmployeeID>1</EmployeeID>
+    <FirstName>Hemanth</FirstName>
+    <RoleId>1</RoleId>
+  </EmployeeProject>
+  <EmployeeProject>
+    <ProjectId>1</ProjectId>
+    <ProjectName>PPM</ProjectName>
+    <EmployeeID>2</EmployeeID>
+    <FirstName>John</FirstName>
+    <RoleId>1</RoleId>
+  </EmployeeProject>
+</ArrayOfEmployeeProject>

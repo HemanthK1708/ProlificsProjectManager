@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfEmployee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Employee>
+    <EmployeeID>1</EmployeeID>
+    <FirstName>Hemanth</FirstName>
+    <LastName>Kumar</LastName>
+    <Email>hk@prolifics</Email>
+    <Mobile>9492135389</Mobile>
+    <Address>Vijayawada</Address>
+    <RoleId>1</RoleId>
+  </Employee>
+  <Employee>
+    <EmployeeID>2</EmployeeID>
+    <FirstName>John</FirstName>
+    <LastName>Abraham</LastName>
+    <Email>ja@prolifics.com</Email>
+    <Mobile>7865231495</Mobile>
+    <Address>Pluto</Address>
+    <RoleId>1</RoleId>
+  </Employee>
+</ArrayOfEmployee>
